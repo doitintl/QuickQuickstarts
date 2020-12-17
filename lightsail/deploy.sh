@@ -12,7 +12,7 @@ PUSH_OUTPUT=$(aws lightsail push-container-image --service-name $SVC --image $IM
 SVC_IMG=$(echo $PUSH_OUTPUT |sed -n  "s/^.*Refer to this image as \"\(.*\)\" in deployments\..*/\1/p" )
 
 
-read -r -d '' LC_JSON <<-EOT
+read -r -d '' LIGHTSPEED_CONF_JSON <<-EOT
  {
       "serviceName": "$SVC",
       "containers": {
@@ -30,9 +30,9 @@ read -r -d '' LC_JSON <<-EOT
   }
 EOT
 
-echo $LC_JSON | jq . > lc.json
+echo $LIGHTSPEED_CONF_JSON | jq . > lightspeed-conf.json
 
-aws lightsail create-container-service-deployment --cli-input-json file://lc.json
+aws lightsail create-container-service-deployment --cli-input-json file://lightspeed-conf.json
 
 while [ -n "$(curl -L --silent $URL |grep 404)" ];
 do
