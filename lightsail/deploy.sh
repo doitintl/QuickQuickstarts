@@ -1,7 +1,7 @@
 #!/bin/bash
-set -x
-IMAGE=hello-world-11
-SVC=flask-svc-11
+
+IMAGE=hello-world
+SVC=flask-service
 
 docker build -t $IMAGE .
 
