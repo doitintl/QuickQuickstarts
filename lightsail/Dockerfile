@@ -1,4 +1,4 @@
-FROM python:3.7-slim-buster
+FROM python:3.7-slim
 RUN pip install flask
 ADD main.py /
 EXPOSE 8080

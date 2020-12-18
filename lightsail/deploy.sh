@@ -1,7 +1,7 @@
 #!/bin/bash
 
 IMAGE=hello-world
-SVC=flask-service
+SVC=hello-world-service
 
 docker build -t $IMAGE .
 
@@ -12,7 +12,7 @@ PUSH_OUTPUT=$(aws lightsail push-container-image --service-name $SVC --image $IM
 SVC_IMG=$(echo $PUSH_OUTPUT |sed -n  "s/^.*Refer to this image as \"\(.*\)\" in deployments\..*/\1/p" )
 
 
-read -r -d '' LIGHTSPEED_CONF_JSON <<-EOT
+read -r -d '' LIGHTSAIL_CONF_JSON <<-EOT
  {
       "serviceName": "$SVC",
       "containers": {
@@ -30,9 +30,9 @@ read -r -d '' LIGHTSPEED_CONF_JSON <<-EOT
   }
 EOT
 
-echo $LIGHTSPEED_CONF_JSON | jq . > lightspeed-conf.json
+echo $LIGHTSAIL_CONF_JSON | jq . > lightsail-conf.json
 
-aws lightsail create-container-service-deployment --cli-input-json file://lightspeed-conf.json
+aws lightsail create-container-service-deployment --cli-input-json file://lightsail-conf.json
 
 while [ -n "$(curl -L --silent $URL |grep 404)" ];
 do
