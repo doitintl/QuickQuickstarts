@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    image: amazon/amazon-ecs-sample
+    ports:
+      - "80:80"
+    logging:
+      driver: awslogs
+      options: 
+        awslogs-group: helloworld-logs-groups
+        awslogs-region: $REGION
+        awslogs-stream-prefix: web
