@@ -21,7 +21,7 @@ rm function.zip
 # Create the API in API Gateway. Extract the API ID (to be used for granting permission) and its Endpoint (URL).
 API_INFO=$(aws apigatewayv2 create-api --name hello-http-api --protocol-type HTTP --target ${FUNCTION_ARN} --query '[ApiEndpoint,ApiId]' | tr -d ',[]\" ' |tr '\n' ';')
 
-API_ENDPOINT=$(echo $API_INFO | cut -d';' -f 2)
+URL=$(echo $API_INFO | cut -d';' -f 2)
 API_ID=$(echo $API_INFO | cut -d';' -f 3)
 
 # Allow the API to access the Lambda
@@ -33,6 +33,4 @@ aws lambda add-permission \
   --source-arn arn:aws:execute-api:us-east-1:${AWS_ACCOUNT}:${API_ID}/*
 
 #Access the Lambda through the API
-curl $API_ENDPOINT
-
-
+curl $URL

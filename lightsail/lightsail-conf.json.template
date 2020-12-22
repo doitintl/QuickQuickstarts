@@ -1,0 +1,15 @@
+  {
+       "serviceName": "$SVC",
+       "containers": {
+          "$IMAGE": {
+             "image": "$SVC_IMG",
+             "ports": {
+                "8080": "HTTP"
+             }
+          }
+      },
+      "publicEndpoint": {
+         "containerName": "$IMAGE",
+         "containerPort": 80
+      }
+   }

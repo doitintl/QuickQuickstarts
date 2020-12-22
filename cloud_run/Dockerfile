@@ -6,6 +6,6 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . ./
 
-RUN pip install Flask gunicorn
+RUN pip install Flask==1.0.2
 
-CMD exec gunicorn --bind :$PORT  main:app
+CMD exec python main.py
