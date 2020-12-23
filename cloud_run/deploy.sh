@@ -1,7 +1,8 @@
 #!/bin/bash
-set -x
 REGION=us-east1
 IMAGE=helloworld-cloudrun
+
+# Submit build
 gcloud builds submit --tag gcr.io/$(gcloud config get-value project )/$IMAGE
 
 # Could run with --platform gke (or kubernetes)
