@@ -6,6 +6,6 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . ./
 
-RUN pip install Flask=1.0.1
+RUN pip install Flask=1.0.2
 EXPOSE 80
 CMD exec python main.py

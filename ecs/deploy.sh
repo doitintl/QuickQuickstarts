@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # Install the ecs-cli command line tool if needed
 ecs-cli --version 2>/dev/null
@@ -21,7 +22,7 @@ export REGION=us-east-1
 # Check that the tool was installed
 ecs-cli --version 2>/dev/null || exit 127
 
-# Build image and push
+# Build image and push to ECR
 docker build -t hello-world-ecs .
 aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query Account --output text).dkr.ecr.${REGION}.amazonaws.com
 aws ecr create-repository --repository-name hello-world-ecs --image-scanning-configuration scanOnPush=true --region $REGION
@@ -54,5 +55,5 @@ aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protoco
 
 # Launch the ECS service
 ecs-cli compose --project-name helloworld-project service up --create-log-groups --cluster-config helloworld-config --ecs-profile helloworld-profile --region $REGION
-ADDRESS=$(ecs-cli compose --project-name helloworld-project service ps --cluster-config helloworld-config --ecs-profile helloworld-profile  --region us-west-1 |tail -n 1|awk '{ print $3 }' |cut -d'-' -f 1 )
+ADDRESS=$(ecs-cli compose --project-name helloworld-project service ps --cluster-config helloworld-config --ecs-profile helloworld-profile  --region $REGION  |tail -n 1|awk '{ print $3 }' |cut -d'-' -f 1 )
 curl $ADDRESS
