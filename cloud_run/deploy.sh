@@ -1,10 +1,11 @@
 #!/bin/bash
-
+set -x
+REGION=us-east1
 IMAGE=helloworld-cloudrun
-SVC=helloworldservice
 gcloud builds submit --tag gcr.io/$(gcloud config get-value project )/$IMAGE
 
 # Could run with --platform gke (or kubernetes)
-gcloud run deploy $SVC --image gcr.io/$(gcloud config get-value project )/$IMAGE --platform managed --region=us-east2 --allow-unauthenticated
-URL=$(gcloud run services describe --platform managed $SVC --region us-east2 --format "value(status.address.url)" )
+gcloud run deploy helloworld-service --image gcr.io/$(gcloud config get-value project )/$IMAGE --platform managed --region=$REGION --allow-unauthenticated
+
+URL=$(gcloud run services describe --platform managed helloworld-service --region $REGION --format "value(status.address.url)" )
 curl $URL

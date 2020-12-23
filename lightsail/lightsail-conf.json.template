@@ -1,10 +1,10 @@
   {
-       "serviceName": "$SVC",
+       "serviceName": "helloworld-service",
        "containers": {
           "$IMAGE": {
              "image": "$SVC_IMG",
              "ports": {
-                "8080": "HTTP"
+                "80": "HTTP"
              }
           }
       },
