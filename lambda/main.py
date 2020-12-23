@@ -1,2 +1,2 @@
-def hello(event, context):
-    return 'Hello World!'
+def helloworld(event, context):
+    return 'Hello, World!'
