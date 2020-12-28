@@ -14,3 +14,6 @@ do
     sleep 3
 done
 curl --silent $URL
+
+echo "\n\n"
+

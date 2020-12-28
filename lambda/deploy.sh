@@ -19,10 +19,10 @@ FUNCTION_ARN=$(aws lambda create-function --function-name ${FUNCTION_NAME} --zip
 
 rm function.zip
 
-#TODO instead of tr, head, tail, use jq
-# Create the API in API Gateway. Extract the API ID (to be used for granting permission) and its Endpoint (URL).
+# Create the API in API Gateway.
 API_INFO=$(aws apigatewayv2 create-api --name helloworld-http-api --protocol-type HTTP --target ${FUNCTION_ARN} --query '[ApiEndpoint,ApiId]' )
 
+# Extract the API ID (to be used for granting permission) and its Endpoint (URL).
 URL=$(echo $API_INFO | jq -r '.[0]')
 API_ID=$(echo $API_INFO | jq -r '.[1]')
 
@@ -36,3 +36,6 @@ aws lambda add-permission \
 
 #Access the Lambda through the API
 curl $URL
+
+echo "\n\n"
+

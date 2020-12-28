@@ -26,3 +26,6 @@ do
 done
 
 curl -L --silent $URL
+
+echo "\n\n"
+

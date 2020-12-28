@@ -10,3 +10,6 @@ gcloud run deploy helloworld-service --image gcr.io/$(gcloud config get-value pr
 
 URL=$(gcloud run services describe --platform managed helloworld-service --region $REGION --format "value(status.address.url)" )
 curl $URL
+
+echo "\n\n"
+

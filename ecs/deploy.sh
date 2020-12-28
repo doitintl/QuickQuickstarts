@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 # Install the ecs-cli command line tool if needed
 ecs-cli --version 2>/dev/null
@@ -34,11 +33,11 @@ docker push $(aws sts get-caller-identity --query Account --output text).dkr.ecr
 aws iam --region $REGION create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://task-execution-assume-role.json
 aws iam --region $REGION attach-role-policy --role-name ecsTaskExecutionRole --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
 
-
-# Configure and launch ECS cluster
+# Configure the ECS cluster
 ecs-cli configure --cluster helloworld-cluster --default-launch-type FARGATE --region $REGION --config-name helloworld-config
 
-CLUSTER_OUTPUT=$(ecs-cli up --cluster-config helloworld-config --ecs-profile helloworld-profile )
+# Launch the cluster. The --force parameter allows idempotence
+CLUSTER_OUTPUT=$(ecs-cli up --cluster-config helloworld-config --ecs-profile helloworld-profile --force )
 
 # Get networking info for  the cluster, using the output of the cluster-creation command
 export SUBNET1=$(echo $CLUSTER_OUTPUT | egrep -o  -m1 "subnet-[0-9a-f]+" | head -n 1 )
@@ -51,9 +50,15 @@ export IMAGE=$(aws sts get-caller-identity --query Account --output text).dkr.ec
 envsubst < ecs-params.yml.template > ecs-params.yml
 envsubst <  docker-compose.yml.template > docker-compose.yml
 
+# Authorize ingress
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 80 --cidr 0.0.0.0/0 --region $REGION
 
 # Launch the ECS service
 ecs-cli compose --project-name helloworld-project service up --create-log-groups --cluster-config helloworld-config --ecs-profile helloworld-profile --region $REGION
+
+# Find the address of the service that was just launched
 ADDRESS=$(ecs-cli compose --project-name helloworld-project service ps --cluster-config helloworld-config --ecs-profile helloworld-profile  --region $REGION  |tail -n 1|awk '{ print $3 }' |cut -d'-' -f 1 )
 curl $ADDRESS
+
+echo "\n\n"
+
