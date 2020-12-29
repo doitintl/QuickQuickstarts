@@ -27,5 +27,5 @@ done
 
 curl -L --silent $URL
 
-echo "\n\n"
+printf "\n\n"
 

@@ -60,5 +60,4 @@ ecs-cli compose --project-name helloworld-project service up --create-log-groups
 ADDRESS=$(ecs-cli compose --project-name helloworld-project service ps --cluster-config helloworld-config --ecs-profile helloworld-profile  --region $REGION  |tail -n 1|awk '{ print $3 }' |cut -d'-' -f 1 )
 curl $ADDRESS
 
-echo "\n\n"
-
+printf "\n\n"

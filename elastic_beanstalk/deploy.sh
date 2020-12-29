@@ -13,7 +13,7 @@ while [ -z "$(curl --silent $URL)" ]
 do
     sleep 3
 done
+
 curl --silent $URL
 
-echo "\n\n"
-
+printf "\n\n"

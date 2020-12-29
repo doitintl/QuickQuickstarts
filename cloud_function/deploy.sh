@@ -8,5 +8,4 @@ gcloud functions deploy hello --runtime python38 --trigger-http --allow-unauthen
 # Access the Cloud Function at the default URL
 curl https://$REGION-$(gcloud config get-value project).cloudfunctions.net/hello
 
-echo "\n\n"
-
+printf "\n\n"
