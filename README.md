@@ -1,4 +1,4 @@
-# Web Backend Quickie-Quickie Start
+# Web Backend See-it-run
 When I try a new technology, I spin up a minimal instance. The goal is to reach that comfortable milestone where I can say "it works!" From that point, I incrementally add the functionalities that I want to explore.
 
 There are a lot of different ways to run a webapp on Google Cloud Platform and Amazon Web Services. [Here are the scripts](https://github.com/doitintl/web_backends_hellos) that can help kick off your experimentation.
@@ -46,12 +46,9 @@ If you find this useful and want to see more, please submit a pull request with 
 Google Kubernetes Service and Elastic Kubernetes Service would be good next steps. as the Amazon EC2 and Google Compute Engine are possibilities, but we could also explore other cloud providers' offerings.
 
 # More Reading
-If you want an explanation of the steps to "Hello World," See the Quickstart and Getting Started article linked from each technology's README.
+If you want an explanation of the steps to "Hello World," see the Quickstart and Getting Started article linked from each technology's README. The `deploy.sh` scripts in the repository resemble the code embedded in these articles, but are even more stripped down.
 
 # Simplicity
-Though it is tempting to use these scripts to compare the technologies, it's important to remember that they are not strictly comparable. Some are more managed, yet have less flexibility and breadth of functionality. Some require configuration files, but in doing so simplify the command line.
-
-Still, if all you want is to get to Hello World,  the shortest scripts are those for Google's App Engine Standard Environment and Cloud Functions; in AWS,  Elastic Beanstalk is the simplest followed by Lightsail. 
+If all you want is to get to Hello World,  the shortest scripts are those for Google's App Engine Standard Environment and Cloud Functions; in AWS,  Elastic Beanstalk is the simplest followed by Lightsail.  Still, though it's tempting to compare the web technoplogies, it's  important to remember their differences:  Some are more managed, others have more flexibility and breadth of functionality. Some require no configuration files to get started, but others offer a simpler command-line options.
 
 
- 
