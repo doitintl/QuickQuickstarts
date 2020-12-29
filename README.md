@@ -1,28 +1,57 @@
-# Compute Options
-Google Cloud Platform and Amazon Web Services offer a lot of ways to run a webapp. To choose one, you want to run a proof of concept.  When I do this, I like spin up a minimal "Hello World" instance, whether that means a cluster, an app, a function, or a Lambda. I do it with a script rather than the console, since I know I'm going to end up re-launching new instances as I learn the different possibilities.
+# Web Backend Quickie-Quickie Start
+When I try a new technology, I spin up a minimal instance. The goal is to reach that comfortable milestone where I can say "it works!" From that point, I incrementally add the functionalities that I want to explore.
 
-These are those scripts. Each one is designed as the shortest script for  spinning up the Minimal Viable Instance and getting "Hello, World!" from a publicly accessible URL. The scripts don't try out the variety of functionalities  on each platform, nor do they tear down the environments. They are just meant to get you to that comfortable milestone where "it works!" and from that point, you can incrementally add the functionalities  that you need.
+There are a lot of different ways to run a webapp on Google Cloud Platform and Amazon Web Services. [Here are the scripts](https://github.com/doitintl/web_backends_hellos) that can help kick off your experimentation.
 
-They are generally based on the "good parts" of Quickstart tutorials for each technology, which I link to in each folder.
+# The scripts 
 
-The scripts do not over every option. They focus on serverless platforms for web applications and APIs, which means AWS Elastic Beanstalk, Google App Engine, AWS Lambda, Cloud Functions, Cloud Run, and Elastic Container Service. I omitted Google Kubernetes Service and Elastic Kubernetes Service, as well as the IaaSes Elastic Campute Cloud and Google Compute Engine, seeing these as general-purpose rather than web-focused, but the distinction is arbitrary, and I'll be glad to add more as I get requests.
+## Automated
 
-And beyond that, there are hundreds of other platforms outside GCP and AWS, if you choose to explore even further.
+You can use the GUI for an initial poke-around, but scripts are better for the "Hello World," since you usually up deploying dozens of times as you tweak and add features. A script gives you reproducibility.
 
-The main prerequisites for running these scripts are `gcloud` and `aws` command-line tools, authenticated (with `gcloud init` and with aws credentials) and configured for a default project/account. Lightsail requires a plugin for the AWS CLI (see the README there for instructions), and ECS requires the `ecs-cli` tool (which the script installs).
+## Minimal
 
-Some scripts also use the `envsubst`  (install gettext package) and [`jq`](https://stedolan.github.io/jq/download/)  for processing command output to get variables to input for the next command. These are useful tools to have around, but if you don't have access to them, you can still use the same sequence of GCP and AWS command and extract necessary variables in another way.
+The script should be minimal: We are not trying off all aspects of each technology, just climbing up to the first level where something works.
 
-Which are the simplest to get started with? Though some technologies require configuration files as well, let's look at the scripts as these can process config files for you.=
+## Complete
 
-Complexity varies according to whether the service is global or requires a region; whether it can use the code directly  or requires zipping it or building a Docker container; whether it pushes directly to the cloud or requires you to push to a repository first, whether it transparently creates the roles, permissions, and networking, or makes you process these or create them.
+It should deploy everything needed including IAM roles, clusters, etc. Assuming command-line tools are installed, the goal is to launch *everything* that is needed.
 
-The shortest scripts are those for Google's App Engine and Cloud Functions, with  Cloud Run adding  code to build a container. 
+Then, if something goes wrong, you can start from strach without figuring how to get each component into a stable state. 
 
-In AWS, Elastic Beanstalk is the simplest followed by   Lightsail.  Lambda is surprisingly complex given that the product's selling point is that it is fully managed:  You need to set up the IAM role and policy; zip up the code; create the function; and to expose it you ned an API Gateway and permissions for the Gateway. ECS is the most complex, but that is not surprising for a more generic compute model that manages less of the environment for you.
+The main prerequisites for running these scripts are `gcloud`, authenticated (with `gcloud init`; and the AWS CLI with credentials. You will need a default project/account set up. Lightsail requires a plugin for the AWS CLI and Elastic Beanstealk requires the `eb` tool. See the README in each directory for instructions. (Also, though the `ecs-cli` tool is needed for ECS, the script installs that for you.)
 
-Yuu can run the  `deploy.sh` in each subdirectory, or `run_all.sh` in this directory. But first check out the prerequisites mentioned in each `deploy.sh` file and Readme.
+Some scripts also use `envsubst` (install it with the gettext package) and [`jq`](https://stedolan.github.io/jq/download/) for processing command output. Even without them the sequence of GCP and AWS commands shown in the script should be useful.
 
+## Re-runnable
+
+The script should preferably let you deploy new code and new features, overwriting the previous deployment without an error about collision with an existing resource. 
+
+The attached scripts for GCP are re-runnable, but those for AWS are not, as this would have required complexity, and my first priority is to keep the scripts simple. I suggest you delete the old instance before redeploying; or you can launch each new version with a new name. (But watch out for costs!) 
+
+## Coverage 
+There are `deploy.sh` scripts for these, each in its own directory.
+* AWS Elastic Beanstalk
+* AWS Lambda
+* Amazon Elastic Container Service
+* Amazon Lightsail
+* Google App Engine Standard Environment
+* GCP Cloud Functions
+* GCP Cloud Run
+
+For the adventurous, you can run them all from a   `run_all.sh` in the root  directory. But first make sure to install the prerequisites mentioned in each `deploy.sh` file and Readme.
+
+If you find this useful and want to see more, please submit a pull request with your script, or an issue asking for your favorite. 
+
+Google Kubernetes Service and Elastic Kubernetes Service would be good next steps. as the Amazon EC2 and Google Compute Engine are possibilities, but we could also explore other cloud providers' offerings.
+
+# More Reading
+If you want an explanation of the steps to "Hello World," See the Quickstart and Getting Started article linked from each technology's README.
+
+# Simplicity
+Though it is tempting to use these scripts to compare the technologies, it's important to remember that they are not strictly comparable. Some are more managed, yet have less flexibility and breadth of functionality. Some require configuration files, but in doing so simplify the command line.
+
+Still, if all you want is to get to Hello World,  the shortest scripts are those for Google's App Engine Standard Environment and Cloud Functions; in AWS,  Elastic Beanstalk is the simplest followed by Lightsail. 
 
 
  
