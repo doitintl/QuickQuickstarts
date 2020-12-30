@@ -1,11 +1,11 @@
 #!/bin/bash
 set -x
 
-IMAGE=gcr.io/$(gcloud config get-value project )/$helloworld-gke
+IMAGE=gcr.io/$(gcloud config get-value project )/helloworld-k8s
 gcloud builds submit --tag $IMAGE
 
-gcloud container clusters create helloworld-cluster --num-nodes=1
-gcloud container clusters get-credentials helloworld-cluster
+gcloud container clusters create helloworld-cluster-1 --num-nodes=1
+gcloud container clusters get-credentials helloworld-cluster-1
 
 # Allow rerunning the script; create a deployment if there is not one yet, otherwise update the deployment.
 if [ -z $(kubectl get deployment helloworld-deployment-1 -o name) ]; then

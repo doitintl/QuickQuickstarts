@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'Hello, World! __BUILDTIME__ '
+    return 'Hello, World2!'
 
 
 if __name__ == '__main__':
