@@ -1,28 +1,34 @@
 #!/bin/bash
+set -x
 
-sed  "s/__BUILDTIME__/$(date -u)/" main.py.template > main.py
-IMAGE=helloworld-gke:$(date +%s)
-IMAGE_GCR=gcr.io/$(gcloud config get-value project )/$IMAGE
-gcloud builds submit --tag $IMAGE_GCR
+IMAGE=gcr.io/$(gcloud config get-value project )/$helloworld-gke
+gcloud builds submit --tag $IMAGE
 
 gcloud container clusters create helloworld-cluster --num-nodes=1
 gcloud container clusters get-credentials helloworld-cluster
 
-if [ -z $(kubectl get deployment helloworld-deployment -o name) ]; then
-    kubectl create deployment helloworld-deployment --image=$IMAGE_GCR
+# Allow rerunning the script; create a deployment if there is not one yet, otherwise update the deployment.
+if [ -z $(kubectl get deployment helloworld-deployment-1 -o name) ]; then
+    kubectl create deployment helloworld-deployment-1 --image=$IMAGE
 else
-   kubectl set image deployment/helloworld-deployment  helloworld-gke=$IMAGE_GCR
+   kubectl set image deployment/helloworld-deployment-1  helloworld-gke=$IMAGE
 fi
 
-kubectl expose deployment helloworld-deployment --type LoadBalancer --port 80 --target-port 8080
+kubectl get deployment helloworld-deployment-1
+kubectl expose deployment helloworld-deployment-1 --name helloworld-service-1 --type LoadBalancer --port 80 --target-port 8080
 
-# The service takes a while to be available
-while [ -z "$(kubectl get service helloworld-deployment -o jsonpath='{.status.loadBalancer.ingress[0].ip}' )" ]
-do
+# Wait for the service's external IP to be assigned
+while : ; do
+    sleep 3
+    IP=$(kubectl get service helloworld-service-1 -o jsonpath='{.status.loadBalancer.ingress[0].ip}' )
+    [ -z "$IP" ] || break
+done
+
+# Even after the service's IP is assigned, the service takes time to be available. Give up after 15 seconds.
+for run in {1..5}; do
+    OUT=$(curl --silent $IP )
+    [ -z "$OUT" ] || break
     sleep 3
 done
-sleep 3
-
-curl --silent $(kubectl get service helloworld-deployment -o jsonpath='{.status.loadBalancer.ingress[0].ip}' )
-
+echo $OUT
 printf "\n\n"
