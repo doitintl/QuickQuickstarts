@@ -35,9 +35,9 @@ Some scripts also use `envsubst` (install it with the gettext package) and [`jq`
 
 ## Re-runnable
 
-The script should preferably let you deploy new code and new features, overwriting the previous deployment without an error about collision with an existing resource. The re-run does not necessarily replace everything -- for example, a cluster may not be replaced --but your new code will be exposed.
 
-The attached scripts for GCP are re-runnable, but those for AWS are not, as this would have required too much complexity. For these, I suggest you delete the old instance before redeploying; or you can launch each new version with a new name. (But watch out for costs!) 
+
+The attached scripts for Cloud Functions, Cloud Run, and AppEngne Standard and Flex are re-runnable, allowing you to deploy new code on top of a previous deployment. For the others,  I suggest deleting the old instance before redeploying; or you can launch each new version with a new name. (But watch out for costs!) 
 
 ## Coverage 
 There are `deploy.sh` scripts for each platform, in the subdirectories.
