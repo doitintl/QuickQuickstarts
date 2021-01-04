@@ -37,7 +37,7 @@ The README for each directory describes the prerequisites. These include
 * A plugin to the AWS CLI tool for Lightsail
 * The Elastic Beanstalk  `eb` tool. 
 * The `ecs-cli` tool for ECS, but the script installs that for you.
-* For processing command output, some require
+* For processing command output, some require:
     * `envsubst` (install it with the `gettext` package) 
     * [`jq`](https://stedolan.github.io/jq/download/)
 
@@ -55,9 +55,10 @@ The README for each directory describes the prerequisites. These include
 9. Google Kubernetes Engine
 ## Scripts
 
-There are `deploy.sh` scripts for each platform, in the subdirectories.
+The [git repository](https://github.com/doitintl/web_backends_hellos)
+has `deploy.sh` scripts for each infrastructure technology, in the subdirectories.
 
-For the adventurous, you can run them all from `run_all.sh` in the root  directory. 
+If you are feeling adventurous, you can run them all from `run_all.sh` in the root  directory. 
 
 If you find this useful and want to see more, please submit a pull request with your script, or an issue asking for your favorite. 
 
@@ -72,10 +73,6 @@ script is  just a single `deploy` command followed by access to a known URL.
 Some infrastructures add more complexity. For example,
 Cloud Run and ECS require building and pushing a container;
 and Lambda needs an IAM role as well.
-
-The code is mostly sequential commands, but in some cases,
-the output of one command needs to be parsed to get input into the next, or
-a loop is needed to wait for a non-blocking initalization to finish.
 
 # More Reading
 For an explanation of the steps to "Hello, World!" see the
