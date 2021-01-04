@@ -1,6 +1,7 @@
 # AWS Elastic Container Service
 
-Prerequisites: An AWS Account and the AWS CLI with credentials configured. Also, you need the ecs-cli tool, but the `deploy.sh` script install that for you. 
+Prerequisites: Docker; and the AWS CLI tool with credentials configured to an AWS account.
+ lso, you need the `ecs-cli` tool, but the `deploy.sh` script install that for you. 
 
 The script `deploy.sh` is  not rerunnable: If you run it twice, the second time will fail.
 

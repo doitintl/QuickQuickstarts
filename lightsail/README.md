@@ -1,6 +1,6 @@
 # AWS Lightsail 
 
-Prerequisites: An AWS account and the AWS CLI with credentials configured. You also need the [Lightsail plugin for the AWS CLI.]( https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-install-software)
+Prerequisites: Docker; the AWS CLI with credentials configured to an AWS account; the [Lightsail plugin for the AWS CLI.]( https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-install-software)
 
 This `deploy.sh` script pushes a container to Lightsail, but Lightsail allows you to skip that step if you deploy services from pre-defined containers.
 

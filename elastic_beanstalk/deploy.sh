@@ -1,5 +1,4 @@
 #!/bin/bash
-# Pre-requisite: Elastic Beanstalk eb command-line tool. See https://github.com/aws/aws-elastic-beanstalk-cli-setup
 
 REGION=us-east-1
 eb init -p python-3.6 helloworld-app --region $REGION

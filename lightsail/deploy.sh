@@ -6,9 +6,6 @@ export AWS_PAGER=""
 export IMAGE=helloworld-lightsail
 docker build -t $IMAGE .
 
-# Prerequisite for Lightsail: Install the updated awscli tool  and install lightsail container plugin for AWS CLI https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-install-software
-# Prerequisites for the text manipulation in this script: jq and envsubst
-
 # Create Lightsail container service, and deploy image to it.
 URL=$(aws lightsail create-container-service --service-name helloworld-service --power nano --scale 1 | jq -r '.containerService.url' )
 PUSH_OUTPUT=$(aws lightsail push-container-image --service-name helloworld-service --image $IMAGE --label $IMAGE  )

@@ -1,6 +1,6 @@
 # Google Kubernetes Engine
 
-Prerequisites: An initialized  `gcloud` CLI tool with a default project.
+Prerequisites: An initialized  `gcloud` CLI tool; `kubectl`.
 
 The script `deploy.sh` is _not_  rerunnable: It will not update the service if you change the code. This can easily be achieved by versioing the container; this was omitted for brevity.
 

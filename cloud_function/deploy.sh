@@ -2,7 +2,7 @@
 
 REGION=us-east1
 
-# Deploy the function
+# Deploy the Function
 gcloud functions deploy hello --runtime python38 --trigger-http --allow-unauthenticated --region=$REGION
 
 # Access the Cloud Function at the default URL
