@@ -1,4 +1,4 @@
-# Web Backends First Steps
+# Quick Quickstarts for multiple Web Backend infrastructures
 Google Cloud Platform and Amazon Web Services have many different infrastructures for running a webapp. 
 When I try a new  one, I spin up a minimal instance from the command line. I just want to reach
 that comfortable milestone where I can say "it works!" 
