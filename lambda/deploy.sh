@@ -32,7 +32,8 @@ aws lambda add-permission \
   --action lambda:InvokeFunction \
   --function-name "${FUNCTION_ARN}" \
   --principal apigateway.amazonaws.com \
-  --source-arn arn:aws:execute-api:${REGION}:${AWS_ACCOUNT}:${API_ID}/*
+  --source-arn arn:aws:execute-api:${REGION}:${AWS_ACCOUNT}:${API_ID}/* \
+  --region $REGION
 
 #Access the Lambda through the API Gateway
 curl $URL
